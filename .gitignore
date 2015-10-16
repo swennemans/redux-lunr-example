@@ -1,1 +1,3 @@
 ./node_modules
+./server/redux
+./server/tmp/docs.json

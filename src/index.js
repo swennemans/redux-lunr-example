@@ -1,13 +1,15 @@
-import ReactDOM from 'react-dom';
-import App from './Containers/App';
+import 'babel-core/polyfill';
+import React from 'react';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { ReduxRouter } from 'redux-router';
 
 import configureStore from '../src/store/configureStore.js'
 const store = configureStore();
 
-ReactDOM.render(
+render(
     <Provider store={store}>
-      {() => <App />}
+      <ReduxRouter />
     </Provider>,
     document.getElementById('root')
 );
