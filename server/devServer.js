@@ -1,10 +1,17 @@
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
-var config = require('./webpack.config.dev');
+var config = require('../webpack.config.dev');
+var Promise = require('bluebird');
+var preparedMD = require('./prepareMD');
+var jsonfile = require('jsonfile');
+Promise.promisifyAll(jsonfile)
 
 var app = express();
 var compiler = webpack(config);
+
+var jsonData = jsonfile.readFileSync(path.join(__dirname, 'tmp', 'docs.json'));
+console.log('jsonData is', jsonData);
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
