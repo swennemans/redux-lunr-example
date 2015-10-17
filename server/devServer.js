@@ -1,17 +1,60 @@
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
-var config = require('../webpack.config.dev');
+
+import favicon from 'serve-favicon';
+
 var Promise = require('bluebird');
 var preparedMD = require('./prepareMD');
 var jsonfile = require('jsonfile');
 Promise.promisifyAll(jsonfile)
 
+import config from '../webpack.config.clientDev';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
+/* Set-up server side rendering etc */
+import React from 'react'
+import {renderToString } from 'react-dom/server';
+import { match, RoutingContext } from 'react-router'
+import createHistory from 'history/lib/createMemoryHistory';
+
+import { createStore, compose, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import routes from '../src/routes';
+import reducers from '../src/reducers/index';
+import qs from 'query-string';
+import serialize from 'serialize-javascript';
+
+
 var app = express();
+app.use(favicon(__dirname + '/public/favicon.ico'))
 var compiler = webpack(config);
 
-var jsonData = jsonfile.readFileSync(path.join(__dirname, 'tmp', 'docs.json'));
-console.log('jsonData is', jsonData);
+import {MOUNT_ID} from '../src/constants'
+
+
+const getMarkup = (store, renderProps) => {
+  const initialState = serialize(store.getState());
+  const markup = renderToString(
+      <Provider store={store}>
+        <RoutingContext {...renderProps} />
+      </Provider>
+  );
+
+  return `<!doctype html>
+    <html>
+      <head>
+        <title>Redux React Router – Server rendering Example</title>
+      </head>
+      <body>
+        <div id="${MOUNT_ID}">${markup}</div>
+        <script>window.__initialState = ${initialState};</script>
+        <script src="/static/bundle.js"></script>
+      </body>
+    </html>
+  `;
+};
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -20,9 +63,26 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.use((req, res) => {
+
+  const store = createStore(reducers);
+  const query = qs.stringify(req.query);
+  const url = req.path + (query.length ? '?' + query : '');
+
+  match({ routes, location: url}, (error, redirectLocation, renderProps) => {
+    if (redirectLocation) {
+      res.redirect(redirectLocation.pathname + redirectLocation.search);
+    } else if (error) {
+      console.error('Router error:', error);
+      res.satus(500).send(error);
+    } else if (renderProps) {
+      res.send(getMarkup(store, renderProps));
+    } else {
+      res.satus(404).send('Not Found');
+    }
+  });
 });
+
 
 app.listen(3002, 'localhost', function(err) {
   if (err) {

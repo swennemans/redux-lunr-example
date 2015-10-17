@@ -10,7 +10,7 @@
     "test-dev": "*.test.js"
   },
   "scripts": {
-    "start": "node ./server/devServer.js",
+    "start": "babel-node ./server/devServer.js",
     "test": "NODE_ENV=test karma start",
     "test-dev": "NODE_ENV=test babel-node ./test/**/*.js | faucet",
     "watch": "npm-watch",
@@ -26,9 +26,11 @@
     "history": "^1.12.5",
     "jsonfile": "^2.2.3",
     "lodash.debounce": "^3.1.1",
+    "lodash.merge": "^3.3.2",
     "lunr": "^0.5.12",
     "marked": "^0.3.5",
     "merge-descriptors": "^1.0.0",
+    "query-string": "^3.0.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^3.0.1",
@@ -36,8 +38,9 @@
     "redux": "^3.0.2",
     "redux-logger": "^2.0.3",
     "redux-lunr": "^0.1.7",
-    "redux-router": "^1.0.0-beta3",
     "redux-thunk": "^1.0.0",
+    "serialize-javascript": "^1.1.2",
+    "serve-favicon": "^2.3.0",
     "shortid": "^2.2.3"
   },
   "devDependencies": {
