@@ -5,7 +5,7 @@ var webpack = require('webpack');
 import favicon from 'serve-favicon';
 
 var Promise = require('bluebird');
-var preparedMD = require('./prepareMD');
+var prepareMD = require('./prepareMD');
 var jsonfile = require('jsonfile');
 Promise.promisifyAll(jsonfile)
 
@@ -23,6 +23,7 @@ import { createStore, compose, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import routes from '../src/routes';
 import reducers from '../src/reducers/index';
+import configureStore from '../src/store/configureStore.js'
 import qs from 'query-string';
 import serialize from 'serialize-javascript';
 
@@ -34,18 +35,22 @@ var compiler = webpack(config);
 import {MOUNT_ID} from '../src/constants'
 
 
-const getMarkup = (store, renderProps) => {
-  const initialState = serialize(store.getState());
+const getMarkup = (docs, renderProps) => {
+  const store = configureStore({snippets: {docs}});
+
   const markup = renderToString(
       <Provider store={store}>
         <RoutingContext {...renderProps} />
       </Provider>
   );
 
+  const initialState = serialize(store.getState());
+
   return `<!doctype html>
     <html>
       <head>
         <title>Redux React Router – Server rendering Example</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
       </head>
       <body>
         <div id="${MOUNT_ID}">${markup}</div>
@@ -65,20 +70,41 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.use((req, res) => {
 
-  const store = createStore(reducers);
+  const store = configureStore({snippets: {docs: [1, 2, 3]}})
+
   const query = qs.stringify(req.query);
   const url = req.path + (query.length ? '?' + query : '');
 
-  match({ routes, location: url}, (error, redirectLocation, renderProps) => {
+  match({routes, location: url}, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
       console.error('Router error:', error);
       res.satus(500).send(error);
     } else if (renderProps) {
-      res.send(getMarkup(store, renderProps));
+
+      console.log('location is', url);
+
+      //if (url === "/") {
+
+        jsonfile.readFileAsync(path.join(__dirname, 'tmp', 'docs.json'))
+            .then((docs) => {
+              return docs.filter((doc) => {
+                if (doc) return doc;
+              });
+            }).then((filteredDocs) => {
+              res.send(getMarkup(filteredDocs, renderProps));
+            })
+            .catch((err) => {
+              console.error('Error reading .json', err)
+            })
+      //} else {
+      //  res.send(getMarkup({}, renderProps));
+      //}
+
+
     } else {
-      res.satus(404).send('Not Found');
+      res.status(404).send('Not Found');
     }
   });
 });

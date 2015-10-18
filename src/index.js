@@ -6,7 +6,7 @@ import configureStore       from './store/configureStore';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 const target = document.getElementById('root');
-const store = configureStore(window.__INITIAL_STATE__);
+const store = configureStore(window.__initialState);
 
 const node = (
     <Provider store={store}>

@@ -1,5 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import nested from 'nested';
+import lost from 'lost';
+import csswring from 'csswring'
 
 const PROJECT_SRC = path.resolve(__dirname, './src');
 
@@ -34,12 +37,17 @@ export default {
         path.resolve(__dirname),
         PROJECT_SRC
       ]
-    }]
-  },
-  resolve: {
-    alias: {
-      'redux-router': PROJECT_SRC
     },
-    extensions: ['', '.js']
+      {test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader'}
+    ]
+  },
+  //resolve: {
+  //  alias: {
+  //    'redux-router': PROJECT_SRC
+  //  },
+  //  extensions: ['', '.js']
+  //},
+  postcss: function() {
+    return [nested, csswring, lost];
   }
 };

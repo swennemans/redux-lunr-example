@@ -1,17 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
 //import { loadProfiles } from '../actions/profile';
-//import { loadDocsIntoIndex, lunrStartSearch, loadStateIntoIndex } from 'redux-lunr'
+import { loadDocsIntoIndex, lunrStartSearch, loadStateIntoIndex } from 'redux-lunr'
+
+if (process.env.BROWSER) require('../styles/main.css');
 
 class App extends Component {
+  static propTypes = {
+    children: PropTypes.any,
+  };
 
-  componentDidMount() {
+  constructor () {
+    super();
   }
+
+  //componentDidMount() {
+  //  const {dispatch} = this.props;
+  //  dispatch(loadStateIntoIndex())
+  //}
 
   render() {
     return (
-        <div className="myFirstComponent">
-          <h1>r</h1>
+        <div id="app">
+          <Header />
+          {this.props.children}
         </div>
     );
   }

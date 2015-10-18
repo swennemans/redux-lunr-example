@@ -1,4 +1,4 @@
-import {
+import Webpack, {
     HotModuleReplacementPlugin,
     NoErrorsPlugin
     } from 'webpack';
@@ -19,7 +19,19 @@ const clientDevConfig = mergeConfig(baseConfig, {
   },
   plugins: [
     new HotModuleReplacementPlugin(),
-    new NoErrorsPlugin()
+    new NoErrorsPlugin(),
+    new Webpack.DefinePlugin({
+      "process.env": {
+
+        // Mainly used to require CSS files with webpack, which can happen only on browser
+        // Used as `if (process.env.BROWSER)...`
+        BROWSER: JSON.stringify(true),
+
+        // Useful to reduce the size of client-side libraries, e.g. react
+        NODE_ENV: JSON.stringify("development")
+
+      }
+    })
   ],
   devtool: 'eval'
 });

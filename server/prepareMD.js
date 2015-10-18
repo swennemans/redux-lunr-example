@@ -9,52 +9,63 @@ Promise.promisifyAll(fs);
 var paths = getPaths();
 
 var results = paths.map(function(path) {
+
   return fs
       .readFileAsync(path)
       .then(function(file) {
         return marked.lexer(file.toString())
       })
       .then(function(res) {
+        return new Promise(
+            (resolve, reject) => {
 
-        for (var i = 0; i < res.length; i++) {
-          var obj;
+              for (var i = 0; i < res.length; i++) {
+                var obj;
 
-          if (res[i].type === "heading") {
-            obj = {};
-            obj["title"] = res[i].text;
-          }
+                if (res[i] !== undefined) {
 
-          if (res[i].type !== "heading") {
+                  if (res[i].type === "heading") {
+                    obj = {};
+                    obj["title"] = res[i].text;
+                  }
 
-            if (obj["body"] === undefined) {
+                  if (res[i].type !== "heading") {
 
-              if (res[i].type === "code") {
-                obj["body"] = " ```" + res[i].text + "``` ";
-              } else {
-                obj["body"] = res[i].text
+                    if (obj["body"] === undefined) {
+
+                      if (res[i].type === "code") {
+                        obj["body"] = " ```" + res[i].text + "``` ";
+                      }
+                      else if (res[i].type === 'paragraph') {
+                        obj["body"] = res[i].text
+                      }
+
+                    } else if (res[i].type !== undefined) {
+
+                      if (res[i].type === "code") {
+                        obj["body"] = obj["body"].concat(" ```" + res[i].text + "``` ");
+                      }
+                      else if (res[i].type === 'paragraph') {
+                        obj["body"] = obj["body"].concat(res[i].text)
+                      }
+                    }
+                  }
+
+                  if (i < res.length - 1 && res[i + 1].type === "heading") {
+                    obj["id"] = shortid.generate();
+
+                    resolve(obj)
+                  }
+                } else {
+                  reject(res)
+                }
               }
+            })
 
-
-            } else {
-              if (res[i].type === "code") {
-                obj["body"] = obj["body"].concat(" ```" + res[i].text + "``` ");
-              } else {
-                obj["body"] = obj["body"].concat(res[i].text)
-              }
-            }
-          }
-
-          if (i < res.length - 1 && res[i + 1].type === "heading") {
-            obj["id"] = shortid.generate();
-            return obj
-          }
-        }
       }).catch(function(err) {
         console.log('Encountered err', err);
       })
 });
-
-
 
 //return array of promises;
 module.exports = results;
