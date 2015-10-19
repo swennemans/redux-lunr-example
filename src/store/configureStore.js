@@ -18,11 +18,9 @@ const options = {
 };
 
 const finalCreateStore = compose(
-    //applyMiddleware(thunk, api),
-    //reduxReactRouter({ createHistory, routes }),
     applyMiddleware(
-        createLunrMiddleware(options),
-        createLogger())
+        createLogger(),
+        createLunrMiddleware(options))
 )(createStore);
 
 export default function configureStore(initialState) {

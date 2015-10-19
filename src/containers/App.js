@@ -15,10 +15,9 @@ class App extends Component {
     super();
   }
 
-  //componentDidMount() {
-  //  const {dispatch} = this.props;
-  //  dispatch(loadStateIntoIndex())
-  //}
+  componentDidMount() {
+    this.props.dispatch(loadStateIntoIndex())
+  }
 
   render() {
     return (
