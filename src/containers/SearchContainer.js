@@ -21,14 +21,6 @@ class SearchContainer extends Component {
         <div>
           <SearchBar {...this.props}/>
           <SearchResult {...this.props} />
-          <hr></hr>
-
-          <h1>
-          {this.props.lunr.results.length > 0 ?
-              this.props.lunr.results[0].title :
-              null
-          }
-          </h1>
         </div>
     );
   }

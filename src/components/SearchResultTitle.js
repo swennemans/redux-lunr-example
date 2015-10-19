@@ -8,7 +8,7 @@ class SearchResultTitle extends Component {
     super(props);
   }
   render() {
-    return <div className="search-result-title" dangerouslySetInnerHTML={ {__html: this.props.highlighter}}/>
+    return <h1 className="search-result-title" dangerouslySetInnerHTML={ {__html: this.props.highlighter}}/>
   }
 }
 export default HighLighter(SearchResultTitle);

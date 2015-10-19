@@ -5,7 +5,7 @@ import _debounce from 'lodash.debounce';
 export default class SearchBar extends Component {
   constructor() {
     super();
-    this.handleSearch = _debounce(this.handleSearch, 300)
+    this.handleSearch = _debounce(this.handleSearch, 100)
   }
   handleSearch = (event) => {
     const query = event.target.value;

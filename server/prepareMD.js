@@ -32,14 +32,6 @@ module.exports = Promise
 
 
                 if (text[i].type === "heading") {
-                  //console.log('heading is', res[i].text);
-
-                  if (text[i].text === "From Backbone") {
-                    //console.log(res[i]);
-
-                    console.log('back', text[i + 1].type);
-                  }
-
                   obj = {};
                   obj["title"] = text[i].text;
                 }
@@ -49,28 +41,31 @@ module.exports = Promise
                   if (obj["body"] === undefined) {
 
                     if (text[i].type === "code") {
-                      obj["body"] = "  \n  ```" + text[i].text + "```  \n";
+                      //console.log("```js  \n", text[i].text, "\n ```");
+                      obj["body"] = "```js  \n" + text[i].text + "\n ```";
                     }
                     else if (text[i].type === 'paragraph' || text[i].type === 'text') {
-                      obj["body"] = text[i].text
+                      obj["body"] = "  \n" + text[i].text
                     }
-                    else {
-                      //console.log('type is', res[i].type, "with text ", res[i]);
-
-                    }
-
                   }
 
                   else if (text[i].type !== undefined) {
 
                     if (text[i].type === "code") {
-                      obj["body"] = obj["body"].concat("```" + text[i].text + "```");
+                      //if (text[i + 1].type !== 'code') {
+                      //  obj["body"] = "  \n```js   \n" + obj["body"].concat("  \n  " + text[i].text + "  \n```");
+                      //}
+                      //obj["body"] = obj["body"].concat("  \n  " + text[i].text);
+                      return;
+
                     }
                     else if (text[i].type === 'paragraph' || text[i].type === 'text') {
-                      obj["body"] = obj["body"].concat(text[i].text)
+                      obj["body"] = obj["body"].concat("  \n" + text[i].text)
                     }
                   }
                 }
+
+
 
                 //Create snippet of each section.
                 if (i < text.length - 1 && (text[i + 1].type === "heading")) {

@@ -20,6 +20,7 @@ module.exports  = function() {
 
   readReduxDir(reduxDocsPath)
   return paths;
+
 }
 
 

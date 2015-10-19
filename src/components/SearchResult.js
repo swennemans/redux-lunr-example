@@ -26,7 +26,7 @@ class SearchResult extends Component {
     };
 
     return (
-        <div>
+        <div id="search-results">
           {renderSearchResults()}
         </div>
     );
