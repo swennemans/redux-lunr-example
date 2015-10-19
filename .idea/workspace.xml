@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="72fbd646-094b-42bf-8272-97e79cdc62b7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/HighLighter.js" afterPath="$PROJECT_DIR$/src/components/HighLighter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/SearchBar.js" afterPath="$PROJECT_DIR$/src/components/SearchBar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/SearchContainer.js" afterPath="$PROJECT_DIR$/src/containers/SearchContainer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/SearchResult.js" afterPath="$PROJECT_DIR$/src/components/SearchResult.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/SearchResultTitle.js" afterPath="$PROJECT_DIR$/src/components/SearchResultTitle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/getPaths.js" afterPath="$PROJECT_DIR$/server/getPaths.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/prepareMD.js" afterPath="$PROJECT_DIR$/server/prepareMD.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/styles/search.css" afterPath="$PROJECT_DIR$/src/styles/search.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="redux-lunr-example.iws" />
@@ -96,8 +89,8 @@
       <file leaf-file-name="HighLighter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/HighLighter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6524702">
-              <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.28960818">
+              <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -495,13 +488,20 @@
       <option name="project" value="LOCAL" />
       <updated>1445259095628</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- added working text-highlighting; &#10;- fix server side md parser to work better;">
+      <created>1445270630637</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1445270630637</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="-201" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45575222" sideWeight="0.48867825" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -516,7 +516,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -531,7 +530,8 @@
     <MESSAGE value="- major overhaul, redux-router causing  problems. Switch to just react-router. &#10;- added new project organization (matching more universal approach). &#10;" />
     <MESSAGE value="- added react-router with serverside routing / rendering; &#10;- added css styling modules; &#10;- created first components;&#10;" />
     <MESSAGE value="- added HOC for text marking;&#10;- added search results" />
-    <option name="LAST_COMMIT_MESSAGE" value="- added HOC for text marking;&#10;- added search results" />
+    <MESSAGE value="- added working text-highlighting; &#10;- fix server side md parser to work better;" />
+    <option name="LAST_COMMIT_MESSAGE" value="- added working text-highlighting; &#10;- fix server side md parser to work better;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -641,6 +641,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.48">
           <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -915,8 +916,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/HighLighter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6524702">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.28960818">
+          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
           <folding />
         </state>
       </provider>
