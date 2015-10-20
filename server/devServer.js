@@ -56,6 +56,7 @@ const getMarkup = (docs, renderProps) => {
         <div id="${MOUNT_ID}">${markup}</div>
         <script>window.__initialState = ${initialState};</script>
         <script src="/static/bundle.js"></script>
+        <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
       </body>
     </html>
   `;

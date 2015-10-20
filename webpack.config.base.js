@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import nested from 'nested';
+import nested from 'postcss-nested';
 import lost from 'lost';
 import csswring from 'csswring'
 
@@ -38,7 +38,8 @@ export default {
         PROJECT_SRC
       ]
     },
-      {test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader'}
+      //use .less extensions on postcss files for indentation in webstorm
+      {test: /\.less$/, loader: 'style-loader!css-loader!postcss'}
     ]
   },
   //resolve: {

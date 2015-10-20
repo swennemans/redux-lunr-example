@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import SearchBar from '../components/SearchBar';
 import SearchResult from '../components/SearchResult';
 
-if (process.env.BROWSER) require('../styles/search.css');
+if (process.env.BROWSER) require('../styles/search.less');
 
 class SearchContainer extends Component {
 

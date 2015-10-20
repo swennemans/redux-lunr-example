@@ -13,13 +13,13 @@ class SearchResult extends Component {
   }
 
   render() {
-    const {query} = this.props.lunr;
+    const {query, results} = this.props.lunr;
     const renderSearchResults = () => {
-      return this.props.lunr.results.map( (result, index) => {
+      return this.props.lunr.results.map((result, index) => {
         return (
             <div key={index} className="search-result-item">
-                <SearchResultTitle query={query} text={result.title}/>
-                <SearchResultBody query={query} text={result.body}/>
+              <SearchResultTitle query={query} text={result.title}/>
+              <SearchResultBody query={query} text={result.body}/>
             </div>
         )
       })
@@ -27,7 +27,34 @@ class SearchResult extends Component {
 
     return (
         <div id="search-results">
-          {renderSearchResults()}
+          {results.length > 0 ?
+              renderSearchResults() :
+              <div className="search-result-item">
+                <h1 className="search-result-title">Welcome</h1>
+
+                <div className="search-result-title">
+                  <p>This is an example of using redux-lunr. In this example the Redux docs are parsed to different doc
+                    snippets saved in the store and thus searched on the client</p>
+
+                  <p><strong>Please note </strong> that this only serves as an example, because the parsing negatively
+                    impacts the performance.
+                    Why? Because the markdown is parsed to HTML on every keystroke when delivering the results. In real
+                    life case you would probably search your objects in your store. But I thought it would serve as a
+                    nice example :)
+                  </p>
+
+                  <p>
+                    I'm aware of some glitches in the search results (eg. weird text). But don't worry this is because
+                    of
+                    the parsing.
+                  </p>
+
+                  <strong>Enjoy</strong>
+
+                </div>
+
+              </div>
+          }
         </div>
     );
   }

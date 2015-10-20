@@ -4,7 +4,7 @@ import Header from '../components/Header';
 //import { loadProfiles } from '../actions/profile';
 import { loadDocsIntoIndex, lunrStartSearch, loadStateIntoIndex } from 'redux-lunr'
 
-if (process.env.BROWSER) require('../styles/main.css');
+if (process.env.BROWSER) require('../styles/main.less');
 
 class App extends Component {
   static propTypes = {
