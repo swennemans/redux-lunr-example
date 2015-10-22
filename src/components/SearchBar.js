@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { lunrStartSearch } from 'redux-lunr';
+import { lunrStartSearch, lunrResetSearchResults } from 'redux-lunr';
 import _debounce from 'lodash.debounce';
 
 export default class SearchBar extends Component {
@@ -9,8 +9,12 @@ export default class SearchBar extends Component {
   }
   handleSearch = (event) => {
     const query = event.target.value;
-    this.props.dispatch(lunrStartSearch(event.target.value + " ", 3))
-    //query.length > 1 ? this.props.dispatch(lunrStartSearch(event.target.value + " ", 3)) : null
+
+    console.log('query is', query);
+
+    query.length > 0 ?
+        this.props.dispatch(lunrStartSearch(query, 3)) :
+        this.props.dispatch(lunrResetSearchResults())
   };
   render() {
     return (

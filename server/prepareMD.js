@@ -10,10 +10,6 @@ Promise.promisifyAll(fs);
 //Get the file paths;
 var paths = getPaths();
 
-//module.exports = Promise.all(paths.map(function(path) {
-//  return fs.readFileAsync(path);
-//}));
-
 module.exports = Promise
         .all(paths.map(function(path) {
           return fs.readFileAsync(path);

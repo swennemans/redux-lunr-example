@@ -3,7 +3,7 @@ import createLogger from 'redux-logger';
 import rootReducer from '../reducers/';
 import {createLunrMiddleware} from 'redux-lunr'
 
-const options = {
+const lunrOptions = {
   index: {
     ref: 'id',
     title: {boost: 10},
@@ -13,14 +13,13 @@ const options = {
     existingStore: true,
     reducer: "snippets",
     entity: "docs"
-  },
-  background: false
+  }
 };
 
 const finalCreateStore = compose(
     applyMiddleware(
         createLogger(),
-        createLunrMiddleware(options))
+        createLunrMiddleware(lunrOptions))
 )(createStore);
 
 export default function configureStore(initialState) {

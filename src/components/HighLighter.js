@@ -14,11 +14,11 @@ export var HighLighter = ComposedComponents => class extends Component {
     const regex = new RegExp("(" + query + ")", "gi");
     const mdtoHTML = marked(text);
 
-    let HTMLString = mdtoHTML.toString();
+    let HTMLString = mdtoHTML;
 
     const queries = query.split(" ");
     if (queries.length > 2) {
-      
+
       queries.forEach((query) => {
         if (query === "") return;
         const reg = new RegExp(query.trim(), 'g');

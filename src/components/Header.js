@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+const {div, h2, p} = React.DOM;
 
 if (process.env.BROWSER) require('../styles/header.less');
 

@@ -5,8 +5,8 @@ import SearchContainer from './containers/SearchContainer';
 import Root from './containers/Root.js'
 
 export default (
-    <Route path="/" component={App}>
-        <Route path="search" components={SearchContainer} />
-        <Route path="root" components={Root} />
+    <Route component={App}>
+        <Route path="/" component={SearchContainer} />
+        <Route path="root" component={Root} />
     </Route>
 );
